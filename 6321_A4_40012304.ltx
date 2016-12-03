@@ -148,33 +148,34 @@ One interval, $k = 1,h = [a,b]$, and  two points, $p_0, p_1 \mid p_0 < p_1, p_0$
 	$p_1$             & $\oplus$          & \\
 \end{tabular}
 \end{center}
- Yet three points $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \oplus, p_1 \in \ominus, p_2 \in \oplus$ cannot be shattered
- Therefore, for the base step $VC_{dim} = 2k$.
+We increase the set to three points with the following labels $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \oplus, p_1 \in \ominus, p_2 \in \oplus$,  it cannot be shattered
+ Therefore, for the base step $VC_{dim} = 2 = 2k$.
  
- Now suppose that for the union of $k$ intervals, we can shatter $2k$ points, then for $k+1$ we must be able to shatter $2(k+1)$. Firstly we note that the most \emph{difficult} configuration to classify would be an alternation of $\oplus$ and $\ominus$ points, since it would require using each one of the k intervals to classify a single point; any other configuration would require  less than $k$ intervals and we would have some \emph{leftover} intervals.
+ Now suppose that for the union of $k$ intervals, we can shatter $2k$ points, then we need to prove that with $k+1$ intervals we are able to shatter $2(k+1)$. 
+ 
+ Firstly we note that the most \emph{difficult} configuration to classify would be an alternation of $\oplus$ and $\ominus$ points, since it would require using each one of the k intervals to classify a single point; any other configuration would require  less than $k$ intervals and we would have some \emph{leftover} intervals to be consumed in classifying newly inserted points.
  
  Inductive step:
  We add points $p_{2k}, p_{2k+1}$, with no inequality constraints, to the $2k$ points shattered with $k$ intervals. Without loss of generality, we suppose the previous points to be in an alternating configuration of labels as we mentioned above. We can contemplate three possible scenarios for the added points:
  \begin{enumerate}[i]
- \item $p_{2k} \in \ominus, p_{2k+1} \in \ominus$
- \item $p_{2k} \in \oplus, p_{2k+1} \in \ominus$
- \item $p_{2k} \in \oplus, p_{2k+1} \in \oplus$
+ \item $p_{2k}, p_{2k+1} \in \ominus$
+ \item $p_{2k} \in \oplus, p_{2k+1} \in \ominus$\footnote{Equivalent to $p_{2k+1} \in \oplus, p_{2k} \in \ominus$}
+ \item $p_{2k}, p_{2k+1} \in \oplus$
  \end{enumerate}
  
  \subsubsection*{case i}
- Since the previous $2k$ points could be shattered and there are no two contiguous $\oplus$ labels in the previous set of $2k$ points, introducing two $\ominus$ labels anywhere will not disrupt prior labeling if the adjacent intervals are adjusted accordingly.
+ Since the previous $2k$ points could be shattered and there are no two contiguous $\oplus$ labels in the previous set of $2k$ points, introducing two $\ominus$ labels anywhere will not disrupt prior labeling if the intervals capturing the adjacent $\oplus$ points are adjusted accordingly.
  
- \subsubsection*{case ii}As above, the $\ominus$ point will not disrupt prior labeling. The $\oplus$ point will either fall beside another $\oplus$ point where it can be included in the adjacent interval once adjusted, or at either end of the set, besides an 
+ \subsubsection*{case ii}As above, the $\ominus$ point will not disrupt prior labeling. The $\oplus$ point will either fall beside another $\oplus$ point where it can be included in the interval\footnote{Once the bounds of said interval have been adjusted} capturing the adjacent $\oplus$, or at either end of the set, besides an 
  $\ominus$ point, in which case the $k+1^{th}$ interval will correctly classify it.
  
- \subsubsection*{case iii}If the previous $2k$ points are labeled with alternating $\ominus$ and $\oplus$, then one end of the set will have $\ominus$ and the other $\oplus$. Thus on inserting points $p_{2k}$ and $p_{2k+1}$ one of them will necessarily fall beside another $\oplus$ point and we will need, at most, the $k+1^{th}$ interval to correctly classify the remaining point if it were placed at the end of the set and beside an $\ominus$.
+ \subsubsection*{case iii}If the previous $2k$ points are labeled with alternating $\ominus$ and $\oplus$, then one end of the set will have $\ominus$ and the other $\oplus$. Thus on inserting points $p_{2k}$ and $p_{2k+1}$ one of them will necessarily fall beside another $\oplus$ and, in the worst case, the other point could be placed at the end of the interval on the end with the $\ominus$, in which case the $k+1^{th}$ interval would correctly classify it.
  
- Thus $k+1$ intervals shatter $2(k+1)$ points. With the addition of three points in the inductive step\footnote{For a grand-total of $1+2(k+1)$}, however, where the resulting configuration were $\oplus, \ominus, \ldots \oplus$ we would not be able to shatter the set of points with $k$ intervals. 
+ Thus $k+1$ intervals shatter $2(k+1)$ points. With the addition of three points in the inductive step\footnote{For a grand-total of $1+2(k+1)$}, however, with $2(k+1)+1$ points and the following configuration $\oplus, \ominus, \ldots \oplus$ we would not be able to shatter the set of points with $k+1$ intervals. 
  
- The inductive step holds.
+ Thus the inductive step holds.
  
- Thust for this class with $k$ intervals, $VC_{dim} = 2k$.
- 
+ Then, for this class with $k$ intervals, $VC_{dim} = 2k$.
  
  
  
