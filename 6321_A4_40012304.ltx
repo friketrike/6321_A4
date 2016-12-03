@@ -1,0 +1,155 @@
+\documentclass{article}
+
+\usepackage[margin=1.2in]{geometry}
+
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{subfig}
+%\usepackage{epstopdf} 
+\usepackage{caption}
+\usepackage{amsmath}
+\usepackage{bm}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{amssymb}
+\usepackage{multirow}
+
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Matlab,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=4
+}
+
+\usepackage{stackengine}
+\def\delequal{\mathrel{\ensurestackMath{\stackon[1pt]{=}{\scriptstyle\Delta}}}}
+
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries}   % The style of the section title
+  {}                             % a prefix
+  {0pt}                          % How much space exists between the prefix and the title
+  {Question \thesection:\quad}    % How the section is represented
+
+% Starred variant
+\titleformat{name=\section,numberless}
+  {\normalfont\Large\bfseries}
+  {}
+  {0pt}
+  {}
+
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+
+\begin{document}
+\title{Comp 6321 - Machine Learning - Assignment 4}
+\author{Federico O'Reilly Regueiro}
+\date{December 4$^{th}$, 2016}
+\maketitle
+
+%------------------------ Q1 ------------------------%
+\section{VC dimensions} 
+
+%------------------------  a ------------------------%
+\subsection{$[a,\infty)$}
+We can shatter a single point $p_0$, $p_0 \in \mathbb{R}$.:
+\begin{center}
+\begin{tabular}{ c | c | c }
+	\textbf{point} & \textbf{label} & \textbf{h}\\
+	\hline
+	$p_0$             & $\oplus$          & $[a,\infty), a < p_0$ \\
+	$p_0$             & $\ominus$          & $[a,\infty), a > p_0$ \\
+\end{tabular}
+\end{center}
+But if we have two points, $p_0, p_1 \mid p_0 < p_1, p_0 \in \oplus, p_1 \in \ominus$, then $[a,\infty)$ cannot shatter them.
+Therefore, for this class of hypothesis: $VC_{dim} = 1$
+
+%------------------------------------- b ------------------------------------------ %
+
+\subsection{$(-\infty, a]$ or $[a, \infty)$}
+Similarly to the previous question, we can shatter one point. Additionally, we can shatter two points, $p_0, p_1 \mid p_0 < p_1, p_0$:
+\begin{center}
+\begin{tabular}{ c | c | c }
+	\textbf{point} & \textbf{label} & \textbf{h}\\
+	\hline
+	$p_0$             & $\ominus$          & \multirow{2}{*}{$(-\infty,a], a < p_0$} \\
+	$p_1$             & $\ominus$          & \\
+	\hline
+	$p_0$             & $\ominus$          & \multirow{2}{*}{$[a,\infty), p_0 < a < p_1$} \\
+	$p_1$             & $\oplus$          & \\
+	\hline
+	$p_0$             & $\oplus$          &  \multirow{2}{*}{$(-\infty,a], p_0 < a < p_1$} \\
+	$p_1$             & $\ominus$          &  \\
+	\hline
+	$p_0$             & $\oplus$          &  \multirow{2}{*}{$[a,\infty), a < p_0$} \\
+	$p_1$             & $\oplus$          & \\
+\end{tabular}
+\end{center}
+However, three points $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \ominus, p_1 \in \oplus, p_2 \in \ominus$ cannot be shattered.
+Therefore, for this class of hypothesis: $VC_{dim} = 2$
+
+%------------------------------------- c ------------------------------------------ %
+\subsection{Finite unions of one-sided intervals}
+The union of more than one left-side interval $(-\infty,a] \cup (-\infty,b] \ldots \cup (-\infty,n]$ is equivalent to a single
+ left-side interval $(-\infty, max(a,b,\ldots n)]$. The same applies for one or more right-side intervals being equivalent to
+  $[min(a,b,\ldots n),\infty)$. Therefore, this hypothesis class is of the form $(-\infty, a] \cup [b,\infty)$.
+ 
+  Since $\{(-\infty, a]$ or $[b, \infty)\} \subset \{(-\infty, a] \cup [b, \infty)\}$, we know this class of hypothesis to be
+  capable of shattering  2 points. But once again,  three points $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \ominus, p_1 \in \oplus, p_2 \in \ominus$ cannot be shattered with this class of hypothesis.
+Therefore, for this class: $VC_{dim} = 2$
+
+%------------------------------------- d ------------------------------------------ %
+\subsection{$[a,b] \cup [c,d]$}
+This class of hypothesis can shatter four points due to the following:
+\begin{enumerate}[a]
+\item Any four positives can be correctly classified by a single interval as can any labeling with a single positive. 
+\item Any two positives and two negatives can be classified with two intervals, given that a single interval is assigned to each positive.
+\item Labeling three positives and one negative will always yield at most two groups of contiguous positive labels, each of which can be contained in one of the two intervals.
+\end{enumerate}
+However, if we have five points $p_0, p_1, p_2, p_3, p_4, \mid p_0 < p_1 < p_2 < p_3 < p_4, p_0 \in \oplus, p_1 \in \ominus, p_2 \in \oplus, p_3 \in \ominus, p_4 \in \oplus$ cannot be shattered with this class of hypothesis.
+Therefore, for this class: $VC_{dim} = 4$
+
+%------------------------------------- e ------------------------------------------ %
+\subsection{Unions of $k$ intervals}
+
+% -------------------------------------------- Q 2 ------------------------------------------------
+\section{KL Divergence}
+
+%------------------------  a ------------------------%
+\subsection{$KL(P||Q) \geq 0, \forall P, Q$}
+ 
+ %------------------------  b ------------------------%
+\subsection{$KL(P||Q) = 0?$}
+
+%------------------------  c ------------------------%
+\subsection{Max $KL(P||Q)$?}
+
+%------------------------  d ------------------------%
+\subsection{$KL(P||Q) = KL(Q||P)$? Justify}
+
+%------------------------  e ------------------------%
+\subsection{Prove $KL(P(Y,X)||Q(Y,X)) = KL(P(X)||Q(X))+KL(P(Y|X)||Q(Y|X))$}
+
+%------------------------  e ------------------------%
+\subsection{Prove $\arg \min_{\Theta}KL(\hat{P}||P) = \arg \max_{\Theta}\sum_{i=1}^{m}logP_{\Theta}(x_i)$}
+
+%------------------------------------------- Q 3 ----------------------------------------------------
+\section{K-means}
+
+\end{document}
