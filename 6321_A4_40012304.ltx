@@ -68,16 +68,16 @@
 
 %------------------------  a ------------------------%
 \subsection{$[a,\infty)$}
-We can shatter a single point $p_0$, $p_0 \in \mathbb{R}$.:
+We can shatter a single point $p_1$, $p_1 \in \mathbb{R}$.:
 \begin{center}
 \begin{tabular}{ c | c | c }
 	\textbf{point} & \textbf{label} & \textbf{h}\\
 	\hline
-	$p_0$             & $\oplus$          & $[a,\infty), a < p_0$ \\
-	$p_0$             & $\ominus$          & $[a,\infty), a > p_0$ \\
+	$p_1$             & $\oplus$          & $[a,\infty), a < p_1$ \\
+	$p_1$             & $\ominus$          & $[a,\infty), a > p_1$ \\
 \end{tabular}
 \end{center}
-But if we have two points, $p_0, p_1 \mid p_0 < p_1, p_0 \in \oplus, p_1 \in \ominus$, then $[a,\infty)$ cannot shatter them.
+But if we have two points, $p_1, p_2 \mid p_1 < p_2, p_1 \in \oplus, p_2 \in \ominus$, then $[a,\infty)$ cannot shatter them.
 Therefore, for this class of hypothesis: $VC_{dim} = 1$
 
 %------------------------------------- b ------------------------------------------ %
@@ -88,20 +88,20 @@ Similarly to the previous question, we can shatter one point. Additionally, we c
 \begin{tabular}{ c | c | c }
 	\textbf{point} & \textbf{label} & \textbf{h}\\
 	\hline
-	$p_0$             & $\ominus$          & \multirow{2}{*}{$(-\infty,a], a < p_0$} \\
-	$p_1$             & $\ominus$          & \\
+	$p_1$             & $\ominus$          & \multirow{2}{*}{$(-\infty,a], a < p_1$} \\
+	$p_2$             & $\ominus$          & \\
 	\hline
-	$p_0$             & $\ominus$          & \multirow{2}{*}{$[a,\infty), p_0 < a < p_1$} \\
-	$p_1$             & $\oplus$          & \\
+	$p_1$             & $\ominus$          & \multirow{2}{*}{$[a,\infty), p_1 < a < p_2$} \\
+	$p_2$             & $\oplus$          & \\
 	\hline
-	$p_0$             & $\oplus$          &  \multirow{2}{*}{$(-\infty,a], p_0 < a < p_1$} \\
-	$p_1$             & $\ominus$          &  \\
+	$p_1$             & $\oplus$          &  \multirow{2}{*}{$(-\infty,a], p_1 < a < p_2$} \\
+	$p_2$             & $\ominus$          &  \\
 	\hline
-	$p_0$             & $\oplus$          &  \multirow{2}{*}{$[a,\infty), a < p_0$} \\
-	$p_1$             & $\oplus$          & \\
+	$p_1$             & $\oplus$          &  \multirow{2}{*}{$[a,\infty), a < p_1$} \\
+	$p_2$             & $\oplus$          & \\
 \end{tabular}
 \end{center}
-However, three points $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \ominus, p_1 \in \oplus, p_2 \in \ominus$ cannot be shattered.
+However, three points $p_1, p_2, p_3, \mid p_1 < p_2 < p_3, p_1 \in \ominus, p_2 \in \oplus, p_3 \in \ominus$ cannot be shattered.
 Therefore, for this class of hypothesis: $VC_{dim} = 2$
 
 %------------------------------------- c ------------------------------------------ %
@@ -111,7 +111,7 @@ The union of more than one left-side interval $(-\infty,a] \cup (-\infty,b] \ldo
   $[min(a,b,\ldots n),\infty)$. Therefore, this hypothesis class is of the form $(-\infty, a] \cup [b,\infty)$.
  
   Since $\{(-\infty, a]$ or $[b, \infty)\} \subset \{(-\infty, a] \cup [b, \infty)\}$, we know this class of hypothesis to be
-  capable of shattering  2 points. But once again,  three points $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \ominus, p_1 \in \oplus, p_2 \in \ominus$ cannot be shattered with this class of hypothesis.
+  capable of shattering  2 points. But once again,  three points $p_1, p_2, p_3, \mid p_1 < p_2 < p_3, p_1 \in \ominus, p_2 \in \oplus, p_3 \in \ominus$ cannot be shattered with this class of hypothesis.
 Therefore, for this class: $VC_{dim} = 2$
 
 %------------------------------------- d ------------------------------------------ %
@@ -122,7 +122,7 @@ This class of hypothesis can shatter four points due to the following:
 \item Any two positives and two negatives can be classified with two intervals, given that a single interval is assigned to each positive.
 \item Labeling three positives and one negative will always yield at most two groups of contiguous positive labels, each of which can be contained in one of the two intervals.
 \end{enumerate}
-However, if we have five points $p_0, p_1, p_2, p_3, p_4, \mid p_0 < p_1 < p_2 < p_3 < p_4, p_0 \in \oplus, p_1 \in \ominus, p_2 \in \oplus, p_3 \in \ominus, p_4 \in \oplus$ cannot be shattered with this class of hypothesis.
+However, if we have five points $p_1, p_2, p_3, p_4, p_5, \mid p_1 < p_2 < p_3 < p_4 < p_5, p_1 \in \oplus, p_2 \in \ominus, p_3 \in \oplus, p_4 \in \ominus, p_5 \in \oplus$ cannot be shattered with this class of hypothesis.
 Therefore, for this class: $VC_{dim} = 4$
 
 %------------------------------------- e ------------------------------------------ %
@@ -130,37 +130,37 @@ Therefore, for this class: $VC_{dim} = 4$
 By induction:
 
 Base step:
-One interval, $k = 1,h = [a,b]$, and  two points, $p_0, p_1 \mid p_0 < p_1, p_0$:
+One interval, $k = 1,h = [a,b]$, and  two points, $p_1, p_2 \mid p_1 < p_2, p_1$:
 \begin{center}
 \begin{tabular}{ c | c | c }
 	\textbf{point} & \textbf{label} & \textbf{h}\\
 	\hline
-	$p_0$             & $\ominus$          & \multirow{2}{*}{$[a, b], b < p_0$} \\
-	$p_1$             & $\ominus$          & \\
+	$p_1$             & $\ominus$          & \multirow{2}{*}{$[a, b], b < p_1$} \\
+	$p_2$             & $\ominus$          & \\
 	\hline
-	$p_0$             & $\ominus$          & \multirow{2}{*}{$[a, b], p_0<a<p_1<b$} \\
-	$p_1$             & $\oplus$          & \\
+	$p_1$             & $\ominus$          & \multirow{2}{*}{$[a, b], p_1<a<p_2<b$} \\
+	$p_2$             & $\oplus$          & \\
 	\hline
-	$p_0$             & $\oplus$          &  \multirow{2}{*}{$[a,b], a< p_0 < b < p_1$} \\
-	$p_1$             & $\ominus$          &  \\
+	$p_1$             & $\oplus$          &  \multirow{2}{*}{$[a,b], a< p_1 < b < p_2$} \\
+	$p_2$             & $\ominus$          &  \\
 	\hline
-	$p_0$             & $\oplus$          &  \multirow{2}{*}{$[a,b], a < p_0, p_1 < b$} \\
-	$p_1$             & $\oplus$          & \\
+	$p_1$             & $\oplus$          &  \multirow{2}{*}{$[a,b], a < p_1, p_2 < b$} \\
+	$p_2$             & $\oplus$          & \\
 \end{tabular}
 \end{center}
-We increase the set to three points with the following labels $p_0, p_1, p_2, \mid p_0 < p_1 < p_2, p_0 \in \oplus, p_1 \in \ominus, p_2 \in \oplus$,  it cannot be shattered
+We increase the set to three points with the following labels $p_1, p_2, p_3, \mid p_1 < p_2 < p_3, p_1 \in \oplus, p_2 \in \ominus, p_3 \in \oplus$,  it cannot be shattered
  Therefore, for the base step $VC_{dim} = 2 = 2k$.
  
- Now suppose that for the union of $k$ intervals, we can shatter $2k$ points, then we need to prove that with $k+1$ intervals we are able to shatter $2(k+1)$. 
+ Now suppose that for the union of $k$ intervals,VC dimension is $2k$\footnote{ie, we can shatter $2k$ points but not $(2k)+1$ points.}, then we need to prove that with $k+1$ intervals we are able to shatter $2(k+1)$. 
  
- Firstly we note that the most \emph{difficult} configuration to classify would be an alternation of $\oplus$ and $\ominus$ points, since it would require using each one of the k intervals to classify a single point; any other configuration would require  less than $k$ intervals and we would have some \emph{leftover} intervals to be consumed in classifying newly inserted points.
+ Firstly we note that the most \emph{difficult} configuration to classify would be an alternation of $\oplus$ and $\ominus$ points, since it would require using each one of the k intervals to classify a single point each; any other configuration would require  less than $k$ intervals and we would have some \emph{leftover} intervals to be consumed in classifying newly inserted points.
  
  Inductive step:
- We add points $p_{2k}, p_{2k+1}$, with no inequality constraints, to the $2k$ points shattered with $k$ intervals. Without loss of generality, we suppose the previous points to be in an alternating configuration of labels as we mentioned above. We can contemplate three possible scenarios for the added points:
+ We add points $p_{2k+1}, p_{2k+2}$, with no inequality constraints, to the $2k$ points shattered with $k$ intervals. Without loss of generality, we suppose the previous points to be in an alternating configuration of labels as we mentioned above. We can contemplate three possible scenarios for the added points:
  \begin{enumerate}[i]
- \item $p_{2k}, p_{2k+1} \in \ominus$
- \item $p_{2k} \in \oplus, p_{2k+1} \in \ominus$\footnote{Equivalent to $p_{2k+1} \in \oplus, p_{2k} \in \ominus$}
- \item $p_{2k}, p_{2k+1} \in \oplus$
+ \item $p_{2k+1}, p_{2k+2} \in \ominus$
+ \item $p_{2k+1} \in \oplus, p_{2k+2} \in \ominus$, note\footnote{Equivalent to $p_{2k+2} \in \oplus, p_{2k+1} \in \ominus$}
+ \item $p_{2k+1}, p_{2k+2} \in \oplus$
  \end{enumerate}
  
  \subsubsection*{case i}
@@ -169,9 +169,9 @@ We increase the set to three points with the following labels $p_0, p_1, p_2, \m
  \subsubsection*{case ii}As above, the $\ominus$ point will not disrupt prior labeling. The $\oplus$ point will either fall beside another $\oplus$ point where it can be included in the interval\footnote{Once the bounds of said interval have been adjusted} capturing the adjacent $\oplus$, or at either end of the set, besides an 
  $\ominus$ point, in which case the $k+1^{th}$ interval will correctly classify it.
  
- \subsubsection*{case iii}If the previous $2k$ points are labeled with alternating $\ominus$ and $\oplus$, then one end of the set will have $\ominus$ and the other $\oplus$. Thus on inserting points $p_{2k}$ and $p_{2k+1}$ one of them will necessarily fall beside another $\oplus$ and, in the worst case, the other point could be placed at the end of the interval on the end with the $\ominus$, in which case the $k+1^{th}$ interval would correctly classify it.
+ \subsubsection*{case iii}If the previous $2k$ points are labeled with alternating $\ominus$ and $\oplus$, then one end of the set will have $\ominus$ and the other $\oplus$. Thus on inserting points $p_{2k+1}$ and $p_{2k+2}$ one of them will necessarily fall beside another $\oplus$ and, in the worst case, the other point could be placed at the end of the interval on the end with the $\ominus$, in which case the $k+1^{th}$ interval would correctly classify it.
  
- Thus $k+1$ intervals shatter $2(k+1)$ points. With the addition of three points in the inductive step\footnote{For a grand-total of $1+2(k+1)$}, however, with $2(k+1)+1$ points and the following configuration $\oplus, \ominus, \ldots \oplus$ we would not be able to shatter the set of points with $k+1$ intervals. 
+ Thus $k+1$ intervals shatter $2(k+1)$ points. Conversely, with $2(k+1)+1$ points and the following configuration $\oplus, \ominus, \ldots \oplus$ we would not be able to shatter the set of points with $k+1$ intervals. 
  
  Thus the inductive step holds.
  
@@ -184,6 +184,7 @@ We increase the set to three points with the following labels $p_0, p_1, p_2, \m
 
 %------------------------  a ------------------------%
 \subsection{$KL(P||Q) \geq 0, \forall P, Q$}
+
  
  %------------------------  b ------------------------%
 \subsection{$KL(P||Q) = 0?$}
