@@ -28,31 +28,30 @@ while (~k_settled)
   tic();
   disp(sprintf('Clustering all pixels, iteration %d', iterations));
   fflush(stdout);
-  for i = 1:length(data(:,1))
-%    min_norm = realmax;
-    temp_pix = repmat(data(i,:), 8, 1);
+  for l = 1:length(data(:,1))
+    temp_pix = repmat(data(l,:), 8, 1);
     [min_l2, idx] = min(norm(temp_pix - k_means, 2, "rows"));
-    k_labels(i) = idx;
-%    for j = 1:length(k_means(:,1))
-%      if (norm(data(i,:)-k_means(j,:)) < min_norm)
-%          min_norm = norm((data(i,:)-k_means(j,:)));
-%          k_labels(i) = j;
-%      end
-%    end
+    k_labels(l) = idx;
   end
   new_means = k_means;
   disp(sprintf('Reassigning means'));
   fflush(stdout);
-  for j = 1:length(k_means(:,1))
-      idx = (k_labels == j);
-      k_membership_counts(iterations, j) = sum(idx);
+  for n = 1:length(k_means(:,1))
+      idx = (k_labels == n);
+      k_membership_counts(iterations, n) = sum(idx);
       if (sum(idx) > 0)
-        new_means(j,:) = mean(data(idx,:));
+        new_means(n,:) = mean(data(idx,:));
       end
   end
   if (new_means == k_means)
     k_settled = true;
     clustered = data;
+    for n = 1:length(k_means(:,1))
+      idx = (k_labels == n);
+      if sum(idx > 0)
+        clustered(idx, :) = repmat(k_means(n, :), sum(idx), 1);
+      end
+    end
   else
     means_trajectory = cat(3, means_trajectory, k_means);
     disp(sprintf('Norm of the difference between this iteration and last''s means: %d', norm(new_means-k_means)))
@@ -63,9 +62,9 @@ while (~k_settled)
   fflush(stdout);
   iterations = iterations + 1;
 end
-R = reshape(data(:,1)./255, 407, 516);
-G = reshape(data(:,2)./255, 407, 516);
-B = reshape(data(:,3)./255, 407, 516);
+R = reshape(clustered(:,1)./255, 407, 516);
+G = reshape(clustered(:,2)./255, 407, 516);
+B = reshape(clustered(:,3)./255, 407, 516);
 the_image = cat(3, R', G', B');
 fliplr(the_image);
-imwrite(the_image, 'much_better_than_trump.jpg');
+imwrite(the_image, 'much_better_than_trump_patches.jpg');
