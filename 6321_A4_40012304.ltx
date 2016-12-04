@@ -300,6 +300,14 @@ M.L.E(x_i, \theta) =& \arg \max\limits_\theta \sum\limits_{i=1}^m log(P_{\theta}
 Which is precisely equal to equation \ref{eq:divergenceEmpirical}.
 
 %------------------------------------------- Q 3 ----------------------------------------------------
-\section{K-means}
+\section{Implementation: K-means}
+
+%------------------------------------------- Q 4 ----------------------------------------------------
+\section{K-medoids - advantages and disadvantages vs K-means}
+K-medoids has two main advantages: 
+it can use any measure of similarity between points, which means it is more flexible than K-means which uses euclidean distance 
+between vectors. The use of medoids as opposed to means also makes the partitioning more robust towards outliers.
+
+Conversely, a disadvantage of K-medoids is that its runtime cost is $O(n^2)$ whereas K-means' is $O(n)$.
 
 \end{document}
