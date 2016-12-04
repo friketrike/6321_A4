@@ -25,6 +25,7 @@ k_membership_counts = zeros([], length(init_matx(:,1)));
 means_trajectory = zeros(8,3,[]);
 iterations = 1;
 while (~k_settled) 
+  tic();
   disp(sprintf('Clustering all pixels, iteration %d', iterations));
   fflush(stdout);
   for i = 1:length(data(:,1))
@@ -40,8 +41,8 @@ while (~k_settled)
 %    end
   end
   new_means = k_means;
-  disp(sprintf('Reassigning means'))
-  fflush(stdout)
+  disp(sprintf('Reassigning means'));
+  fflush(stdout);
   for j = 1:length(k_means(:,1))
       idx = (k_labels == j);
       k_membership_counts(iterations, j) = sum(idx);
@@ -54,10 +55,12 @@ while (~k_settled)
     clustered = data;
   else
     means_trajectory = cat(3, means_trajectory, k_means);
-    disp(sprintf('Total difference between this iteration and last''s means: %d', sum(sum(new_means-k_means))))
+    disp(sprintf('Norm of the difference between this iteration and last''s means: %d', norm(new_means-k_means)))
     fflush(stdout);
     k_means = new_means;
   end
+  disp(sprintf('iteration %d took %d ms.', iterations, toc()));
+  fflush(stdout);
   iterations = iterations + 1;
 end
 R = reshape(data(:,1)./255, 407, 516);
