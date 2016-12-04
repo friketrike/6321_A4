@@ -186,14 +186,14 @@ We increase the set to three points with the following labels $p_1, p_2, p_3, \m
 
 %------------------------  a ------------------------%
 \subsection{$KL(P||Q) \geq 0, \forall P, Q$}
-Since log is a concave function, in order to use Jensen's inequality, we make the expression convex by proving $-KL(P||Q) \leq 0, \forall P, Q$. We use $P(x_i) > 0, \forall P(x_i)$ for convenience.
+Since $log(x)$ is a concave function, in order to use Jensen's inequality as stated for convex functions, we make the expression convex by proving $-KL(P||Q) \leq 0, \forall P, Q$. We use $P(x_i) > 0, \forall P(x_i)$ for convenience.
 \begin{equation*}
 \begin{aligned}
 -KL(P||Q) = -&\sum\limits_{i=1}^m P(x_i) log \left( \frac{P(x_i)}{Q(x_i)} \right)\\
 			= &\sum\limits_{i=1}^m P(x_i) log \left(\frac{Q(x_i)}{P(x_i)} \right)\\
 \end{aligned}
 \end{equation*}
-And by Jensen's inequality, taking $\frac{Q(x_i)}{P(x_i)}$ to be a  random variable uniformly distributed over $i$, we can then write:
+And by Jensen's inequality, taking $\frac{P(x_i)}{Q(x_i)}$ to be a  random variable uniformly distributed over $i$, we can then write:
 \begin{equation*}
 \begin{aligned}
 -KL(P||Q) \leq & log \left(\sum\limits_{i=1}^m P(x_i) \frac{Q(x_i)}{P(x_i)} \right)\\
