@@ -59,7 +59,7 @@ while (~k_settled)
     fflush(stdout);
     k_means = new_means;
   end
-  disp(sprintf('iteration %d took %d ms.', iterations, toc()));
+  disp(sprintf('iteration %d took %d seconds.', iterations, toc()));
   fflush(stdout);
   iterations = iterations + 1;
 end
