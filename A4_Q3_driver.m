@@ -116,6 +116,9 @@ k_membership_counts(iteration_count+1:end, :) = [];
 means_trajectory(:,:,iteration_count+1:end) = [];
 sum_squared_dist(:, iteration_count+1:end) = [];
 
+disp(sprintf('The whole process took %d seconds.', toc(t0)));
+
+plot_time = tic();
 % Give some info
 disp(sprintf('There are %d total clusters with pixels in them',...
              sum(k_membership_counts(iteration_count,:) ~= 0) ));
@@ -138,12 +141,44 @@ axis([0,iteration_count,0,k+1]);
 title('Colors resulting from centroid movement over iterations')
 xlabel('Iterations');
 ylabel('Cluster');
-saveas(gcf,'centroidEvolutions.pdf');
+%saveas(gcf,'centroidEvolutions.pdf');
 
 figure(2)
 plot(sum_squared_dist)
 title('sum of squared distances to centroid per iteration');
 xlabel('iterations');
-saveas(gcf,'sumSquaredDistances.pdf');
+%saveas(gcf,'sumSquaredDistances.pdf');
 
-disp(sprintf('The whole process took %d seconds.', toc(t0)));
+figure(3)
+for kth = 1:k
+  subplot(ceil(k/2), 2, kth);
+  plot(k_membership_counts(:, kth));
+  hold on;
+end
+hold off;
+
+figure(4)
+legends = {};
+hold on;
+for iter = iteration_count:-1:1
+  for kth = 1:k
+    %subplot(ceil(k/2), 2, kth);
+    color = means_trajectory(kth, :, iter)./255;
+    modif = (kth-(k/2))/k;
+    iter_modif = iter + modif;
+    plot(iter_modif, k_membership_counts(iter, kth), 'o', 'color', color,...
+                  'MarkerEdgeColor','k',...
+                  'MarkerFaceColor',color);
+  end
+end
+for kth=1:k
+  legends{kth} = sprintf('Cluster %d', kth);
+end
+hold off;
+legend(legends);
+title('Cluster number of pixels and color over iterations')
+xlabel('Iterations');
+ylabel('Number of pixels');
+saveas(gcf,'clusterMembership.pdf');
+
+disp(sprintf('Plotting took %d seconds', toc(plot_time)));
