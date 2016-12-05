@@ -123,11 +123,13 @@ plot_time = tic();
 disp(sprintf('There are %d total clusters with pixels in them',...
              sum(k_membership_counts(iteration_count,:) ~= 0) ));
 
-disp('Cluster membership count is respectively:');
+disp('Final cluster membership count is respectively:');
 disp(k_membership_counts(iteration_count,:));
 
 disp('The final centroids are:');
 disp(k_means_flat)
+
+% now plot some things
 g = figure(1);
 for iter = iteration_count:-1:1
   for kth = 1:k
@@ -179,6 +181,6 @@ legend(legends);
 title('Cluster number of pixels and color over iterations')
 xlabel('Iterations');
 ylabel('Number of pixels');
-saveas(gcf,'clusterMembership.pdf');
+%saveas(gcf,'clusterMembership.pdf');
 
 disp(sprintf('Plotting took %d seconds', toc(plot_time)));

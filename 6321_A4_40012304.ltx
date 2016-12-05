@@ -23,7 +23,7 @@
 \definecolor{gray}{rgb}{0.5,0.5,0.5}
 \definecolor{mauve}{rgb}{0.58,0,0.82}
 
-\lstset{frame=tb,
+\lstset{
   language=Matlab,
   aboveskip=3mm,
   belowskip=3mm,
@@ -129,7 +129,7 @@ Therefore, for this class: $VC_{dim} = 4$
 
 %------------------------------------- e ------------------------------------------ %
 \subsection{Unions of $k$ intervals}
-By induction:
+We prove that it is $2k$ by induction:
 
 Base step:
 One interval, $k = 1,h = [a,b]$, and  two points, $p_1, p_2 \mid p_1 < p_2, p_1$:
@@ -165,6 +165,8 @@ We increase the set to three points with the following labels $p_1, p_2, p_3, \m
  \item $p_{2k+1}, p_{2k+2} \in \oplus$
  \end{enumerate}
  
+ \clearpage
+ 
  \subsubsection*{case i}
  Since the previous $2k$ points could be shattered and there are no two contiguous $\oplus$ labels in the previous set of $2k$ points, introducing two $\ominus$ labels anywhere will not disrupt prior labeling if the intervals capturing the adjacent $\oplus$ points are adjusted accordingly.
  
@@ -179,7 +181,7 @@ We increase the set to three points with the following labels $p_1, p_2, p_3, \m
  
  Then, for this class with $k$ intervals, $VC_{dim} = 2k$.
  
- 
+ \clearpage
  
 % -------------------------------------------- Q 2 ------------------------------------------------
 \section{KL Divergence}
@@ -299,8 +301,71 @@ M.L.E(x_i, \theta) =& \arg \max\limits_\theta \sum\limits_{i=1}^m log(P_{\theta}
 \end{equation*}
 Which is precisely equal to equation \ref{eq:divergenceEmpirical}.
 
+\clearpage
+
 %------------------------------------------- Q 3 ----------------------------------------------------
 \section{Implementation: K-means}
+K-means clustering has been implemented in the \texttt{A4\textunderscore Q3\textunderscore driver.m} matlab script. 
+The file is included as part of this submission.
+
+We reproduce,  at the end of the answer,  the main par of code for the reader's convenience, omitting non-essential plotting and file manipulation. The reprint includes some useful comments regarding the procedure.
+
+The script outputs some useful information both as simple text and in the form of plots. The text output is printed here and the plots can be seen in figures \ref{fig:sumSquaredDistances}, \ref{fig:clusterMembership} and \ref{fig:centroidEvolutions}.
+
+The original and resulting images are also reprinted in figures \ref{fig:obama} and \ref{fig:obamaClustered}
+
+
+\begin{verbatim}
+		There are 6 total clusters with pixels in them
+		
+		Final cluster membership count is respectively:
+		    4930   15190   52535       0   22075       0   40365   74917
+		
+		The final centroids are:
+		   241.22961   238.62515   233.86288
+		   194.41159   136.33311    90.94365
+		   136.26556    61.08973    10.10385
+		     0.00000   255.00000     0.00000
+		   157.29173    97.59398    51.43330
+		     0.00000     0.00000   255.00000
+		    78.92744    37.10829    13.07070
+		    25.97800    23.23575    23.60599
+\end{verbatim}
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=4in, trim=0.7in 2.7in 1in 2.7in]{sumSquaredDistances}
+    \caption{The sum of all squared distances from all pixels towards their respective centroids over iterations.}\label{fig:sumSquaredDistances}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=4in, trim=0.7in 2.7in 1in 2.7in]{clusterMembership}
+    \caption{The number of pixels pertaining to each cluster per iteration. The marker colors represent the resulting color of centroids per iteration.}\label{fig:clusterMembership}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[width=4in, trim=0.7in 2.7in 1in 2.7in]{centroidEvolutions}
+    \caption{Centroid's resulting color per iteration. Most centroids shift rapidly during the first few iterations, only cluster 5 seems to evolve more slowly.}\label{fig:centroidEvolutions}
+\end{center}
+\end{figure}
+
+\begin{figure}[H]
+\begin{center}
+	\subfloat[original image - 256 colors]{
+	\includegraphics[width=2.6in]{muchBetterThanTrump}\label{fig:obama}}
+	\hfill
+	\subfloat[image with 6 actual clusters for pixel color-value]{
+	\includegraphics[width=2.6in]{muchBetterThanTrumpPatches}\label{fig:obamaClustered}}
+\caption{The original image, left, and the clustered image to the right.}%      
+\end{center}
+\end{figure}
+
+The k-means algorithm part of \texttt{A4\textunderscore Q3\textunderscore driver.m}:
+\lstinputlisting[breaklines, firstline=24, lastline=104, firstnumber=24]{A4_Q3_driver.m}
 
 %------------------------------------------- Q 4 ----------------------------------------------------
 \section{K-medoids - advantages and disadvantages vs K-means}
