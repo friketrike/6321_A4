@@ -31,7 +31,7 @@ init_matx = ...
 0, 0, 128; ...
 0, 0, 0];
 
-data = load("hw4-image.txt");
+data = load('hw4-image.txt');
 
 m = length(data(:,1));
 d = length(data(1,:));
@@ -125,7 +125,7 @@ disp(k_membership_counts(iteration_count,:));
 
 disp('The final centroids are:');
 disp(k_means_flat)
-g = figure(1)
+g = figure(1);
 for iter = iteration_count:-1:1
   for kth = 1:k
     color = means_trajectory(kth, :, iter)./255;
