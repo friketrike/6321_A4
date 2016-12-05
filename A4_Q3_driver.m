@@ -109,7 +109,7 @@ G = reshape(clustered(:,2)./255, 407, 516);
 B = reshape(clustered(:,3)./255, 407, 516);
 the_image = cat(3, R', G', B');
 fliplr(the_image);
-imwrite(the_image, 'much_better_than_trump_patches.jpg');
+%imwrite(the_image, 'muchBetterThanTrumpPatches.jpg');
 
 % cut pre-allocated arrays if they weren't fully used
 k_membership_counts(iteration_count+1:end, :) = [];
@@ -164,7 +164,6 @@ legends = {};
 hold on;
 for iter = iteration_count:-1:1
   for kth = 1:k
-    %subplot(ceil(k/2), 2, kth);
     color = means_trajectory(kth, :, iter)./255;
     modif = (kth-(k/2))/k;
     iter_modif = iter + modif;
