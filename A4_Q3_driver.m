@@ -46,14 +46,17 @@ k_means = repmat(reshape(init_matx', 1, d, k), m, 1, 1);
 new_means = init_matx;
 k_labels = 1:m;
 k_settled = false;
-% how many pixels per cluster per iteration
+
+
+% keep a trace of the important data through iterations
 k_membership_counts = zeros(ITERS, k);
-% keep a trace of the centroids per iteration
 means_trajectory = zeros(k,d,ITERS);
 sum_squared_dist = zeros(1, ITERS);
 iteration_count = 1;
+
 % keep k-copies of the data to quickly get the distance to centroids
 unfolded_data = repmat(data, 1, 1, k);
+
 % get the L2 norm of the row-slice of the difference between 8 pixel copies and centroids
 slice_sq_norm = @(tensor)reshape(sum((tensor.^2),2), size(tensor, 1), size(tensor, 3));
 
@@ -93,7 +96,6 @@ while (~k_settled)
   else
     iteration_count = iteration_count + 1;
   end
-  
 end
 
 % Now convert pixels to their respective centroid

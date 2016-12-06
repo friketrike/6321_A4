@@ -122,14 +122,15 @@ This class of hypothesis can shatter four points due to the following:
 \begin{enumerate}[a]
 \item Any four positives can be correctly classified by a single interval as can any labeling with a single positive. 
 \item Any two positives and two negatives can be classified with two intervals, given that a single interval is assigned to each positive.
-\item Labeling three positives and one negative will always yield at most two groups of contiguous positive labels, each of which can be contained in one of the two intervals.
+\item Labeling three positives and one negative will always yield at most two disjunct groups of contiguous positive labels,
+ each of which can be contained in one of the two intervals.
 \end{enumerate}
 However, if we have five points $p_1, p_2, p_3, p_4, p_5, \mid p_1 < p_2 < p_3 < p_4 < p_5, p_1 \in \oplus, p_2 \in \ominus, p_3 \in \oplus, p_4 \in \ominus, p_5 \in \oplus$ cannot be shattered with this class of hypothesis.
 Therefore, for this class: $VC_{dim} = 4$
 
 %------------------------------------- e ------------------------------------------ %
 \subsection{Unions of $k$ intervals}
-We prove that it is $2k$ by induction:
+Informally speaking, the maximum number of disjunct groups of positives in a set with $p$ points, where $p$ is even, is $\frac{p}{2}$. Thus $k$ intervals would allow us to correctly label  all positive points in a set with cardinality $2k$.  We prove this is the case by induction:
 
 Base step:
 One interval, $k = 1,h = [a,b]$, and  two points, $p_1, p_2 \mid p_1 < p_2, p_1$:
@@ -150,10 +151,10 @@ One interval, $k = 1,h = [a,b]$, and  two points, $p_1, p_2 \mid p_1 < p_2, p_1$
 	$p_2$             & $\oplus$          & \\
 \end{tabular}
 \end{center}
-We increase the set to three points with the following labels $p_1, p_2, p_3, \mid p_1 < p_2 < p_3, p_1 \in \oplus, p_2 \in \ominus, p_3 \in \oplus$,  it cannot be shattered
+We increase the set to three points with the following labels $p_1, p_2, p_3, \mid p_1 < p_2 < p_3, p_1 \in \oplus, p_2 \in \ominus, p_3 \in \oplus$ and note that it cannot be shattered
  Therefore, for the base step $VC_{dim} = 2 = 2k$.
  
- Now suppose that for the union of $k$ intervals,VC dimension is $2k$\footnote{ie, we can shatter $2k$ points but not $(2k)+1$ points.}, then we need to prove that with $k+1$ intervals we are able to shatter $2(k+1)$. 
+ Now we suppose that for the union of $k$ intervals,VC dimension is $2k$\footnote{ie, we can shatter $2k$ points but not $(2k)+1$ points.}, then we need to prove that with $k+1$ intervals we are able to shatter $2(k+1)$. 
  
  Firstly we note that the most \emph{difficult} configuration to classify would be an alternation of $\oplus$ and $\ominus$ points, since it would require using each one of the k intervals to classify a single point each; any other configuration would require  less than $k$ intervals and we would have some \emph{leftover} intervals to be consumed in classifying newly inserted points.
  
@@ -168,10 +169,10 @@ We increase the set to three points with the following labels $p_1, p_2, p_3, \m
  \clearpage
  
  \subsubsection*{case i}
- Since the previous $2k$ points could be shattered and there are no two contiguous $\oplus$ labels in the previous set of $2k$ points, introducing two $\ominus$ labels anywhere will not disrupt prior labeling if the intervals capturing the adjacent $\oplus$ points are adjusted accordingly.
+ Since the previous $2k$ points could be shattered and there are no two contiguous $\oplus$ labels in the previous set of $2k$ points, introducing two $\ominus$ labels anywhere will not disrupt prior labeling if the intervals capturing the adjacent $\oplus$ points are adjusted (shrunk) accordingly.
  
- \subsubsection*{case ii}As above, the $\ominus$ point will not disrupt prior labeling. The $\oplus$ point will either fall beside another $\oplus$ point where it can be included in the interval\footnote{Once the bounds of said interval have been adjusted} capturing the adjacent $\oplus$, or at either end of the set, besides an 
- $\ominus$ point, in which case the $k+1^{th}$ interval will correctly classify it.
+ \subsubsection*{case ii}As above, the $\ominus$ point will not disrupt prior labeling. The $\oplus$ point will either fall beside another $\oplus$ point where it can be included in the interval\footnote{Once the bounds of said interval have been adjusted} capturing the adjacent $\oplus$, at either end of the set, besides an 
+ $\ominus$ point, or between the contiguous $\ominus$ points that resulted from the insertion of $p_{2k+2} \in \ominus$; in either case, the $k+1^{th}$ interval will correctly classify the newly inserted $p_{2k+1} \in \oplus$.
  
  \subsubsection*{case iii}If the previous $2k$ points are labeled with alternating $\ominus$ and $\oplus$, then one end of the set will have $\ominus$ and the other $\oplus$. Thus on inserting points $p_{2k+1}$ and $p_{2k+2}$ one of them will necessarily fall beside another $\oplus$ and, in the worst case, the other point could be placed at the end of the interval on the end with the $\ominus$, in which case the $k+1^{th}$ interval would correctly classify it.
  
@@ -228,7 +229,8 @@ Which can be interpreted as the divergence between the true distribution $P(x)$ 
 
 %------------------------  d ------------------------%
 \subsection{$KL(P||Q) = KL(Q||P)$? Justify}
-No, suppose $x_i = \{0,1\}$ with $P(0) = \frac{1}{3}, P(1) = \frac{2}{3}$ modelled by $Q(0) = \frac{1}{2}, Q(1) = \frac{1}{2}$.
+No, by definition they are not symmetric. We show a counterexample to symmetry: suppose 
+$x_i = \{0,1\}$ with $P(0) = \frac{1}{3}, P(1) = \frac{2}{3}$ modelled by $Q(0) = \frac{1}{2}, Q(1) = \frac{1}{2}$.
 Then:
 \begin{equation*}
 \begin{aligned}
@@ -285,8 +287,8 @@ And since $\sum_x \hat{P}(x) log ( \hat{P}(x) )$ depends solely on the observati
 \end{aligned}
 \end{equation}
 Then, for a given set of $m$ observations $x_i, x \in X, i \in \{1,2,\ldots m\}$ we can have $n\leq m $ unique values, 
-which we index as $x_j, x \in X,  j \in \{1,2,\ldots n \}$ to avoid confusion with observation indexing $i \in \{1,2,\ldots m\}$.
-Thus we can substitute $\hat{P}(x_j) = \frac{|x_j|}{m}$ into equation \ref{eq:argMinDivergence}:
+which we index as $x_j, x \in X,  j \in \{1,2,\ldots n \}$. We highlight the difference between observation indexing, $i \in \{1,2,\ldots m\}$ and value indexing, $ j \in \{1,2,\ldots n \}$.
+We can then substitute $\hat{P}(x_j) = \frac{|x_j|}{m}$ into equation \ref{eq:argMinDivergence}:
 \begin{equation}\label{eq:divergenceEmpirical}
 \arg \min\limits_{\theta}KL(\hat{P}||P_{\theta}) =  \arg \max\limits_{\theta}  
 																\sum\limits_{j=1}^n \frac{|x_j|}{m} log ( P_{\theta}(x_j) )
@@ -295,11 +297,12 @@ Now we develop the \textit{RHS}:
 \begin{equation*}
 \begin{aligned}
 M.L.E(x_i, \theta) =& \arg \max\limits_\theta \sum\limits_{i=1}^m log(P_{\theta}(x_i))\\
+\mbox{Multiplying by a positive constant v}&\mbox{alue does not change the result of} \max\arg\limits_\theta\\
 					   =& \arg \max\limits_\theta \sum\limits_{i=1}^m \frac{1}{m} log(P_{\theta}(x_i))\\
-					   =& \arg \max\limits_\theta \sum\limits_{j=1}^n \frac{|x_j|}{n} log(P_{\theta}(x_j))	 
+					   =& \arg \max\limits_\theta \sum\limits_{j=1}^n \frac{|x_j|}{m} log(P_{\theta}(x_j))	 
 \end{aligned}
 \end{equation*}
-Which is precisely equal to equation \ref{eq:divergenceEmpirical}.
+Which is precisely equal to equation \ref{eq:divergenceEmpirical}. \small{QED}
 
 \clearpage
 
@@ -308,9 +311,11 @@ Which is precisely equal to equation \ref{eq:divergenceEmpirical}.
 K-means clustering has been implemented in the \texttt{A4\textunderscore Q3\textunderscore driver.m} matlab script. 
 The file is included as part of this submission.
 
-We reproduce,  at the end of the answer,  the main par of code for the reader's convenience, omitting non-essential plotting and file manipulation. The reprint includes some useful comments regarding the procedure.
+We reproduce,  at the end of the answer,  the main part of code for the reader's convenience, omitting most non-essential
+ plotting and file manipulation instructions. The script and respective reprint includes some useful comments regarding 
+ the procedure.
 
-The script outputs some useful information both as simple text and in the form of plots. The text output is printed here and the plots can be seen in figures \ref{fig:sumSquaredDistances}, \ref{fig:clusterMembership} and \ref{fig:centroidEvolutions}.
+The script outputs useful information both as simple text and in the form of plots. The text output is printed here and the plots can be seen in figures \ref{fig:sumSquaredDistances}, \ref{fig:clusterMembership} and \ref{fig:centroidEvolutions}.
 
 The original and resulting images are also reprinted in figures \ref{fig:obama} and \ref{fig:obamaClustered}
 
@@ -335,21 +340,25 @@ The original and resulting images are also reprinted in figures \ref{fig:obama} 
 \begin{figure}[H]
 \begin{center}
 	\includegraphics[width=4in, trim=0.7in 2.7in 1in 2.7in]{sumSquaredDistances}
-    \caption{The sum of all squared distances from all pixels towards their respective centroids over iterations.}\label{fig:sumSquaredDistances}
+    \caption{The sum of all squared distances from all pixels towards their respective centroids over iterations.}
+    \label{fig:sumSquaredDistances}
 \end{center}
 \end{figure}
 
 \begin{figure}[H]
 \begin{center}
 	\includegraphics[width=4in, trim=0.7in 2.7in 1in 2.7in]{clusterMembership}
-    \caption{The number of pixels pertaining to each cluster per iteration. The marker colors represent the resulting color of centroids per iteration.}\label{fig:clusterMembership}
+    \caption{The number of pixels pertaining to each cluster per iteration. The marker colors represent the resulting color of 
+    centroids per iteration.}\label{fig:clusterMembership}
 \end{center}
 \end{figure}
 
 \begin{figure}[H]
 \begin{center}
 	\includegraphics[width=4in, trim=0.7in 2.7in 1in 2.7in]{centroidEvolutions}
-    \caption{Centroid's resulting color per iteration. Most centroids shift rapidly during the first few iterations, only cluster 5 seems to evolve more slowly.}\label{fig:centroidEvolutions}
+    \caption{Centroids' resulting colors per iteration. Most centroids shift rapidly during the first few iterations, only cluster
+     5 seems to evolve more slowly, as does its membership count, see the bottom part of 
+     figure \ref{fig:clusterMembership}.}\label{fig:centroidEvolutions}
 \end{center}
 \end{figure}
 
@@ -365,14 +374,19 @@ The original and resulting images are also reprinted in figures \ref{fig:obama} 
 \end{figure}
 
 The k-means algorithm part of \texttt{A4\textunderscore Q3\textunderscore driver.m}:
-\lstinputlisting[breaklines, firstline=24, lastline=104, firstnumber=24]{A4_Q3_driver.m}
+\lstinputlisting[breaklines, firstline=24, lastline=107, firstnumber=24]{A4_Q3_driver.m}
 
 %------------------------------------------- Q 4 ----------------------------------------------------
 \section{K-medoids - advantages and disadvantages vs K-means}
-K-medoids has two main advantages: 
-it can use any measure of similarity between points, which means it is more flexible than K-means which uses euclidean distance 
-between vectors. The use of medoids as opposed to means also makes the partitioning more robust towards outliers.
+K-medoids, which minimizes the dissimilarities inside the cluster\footnote{however these dissimilarities might be defined in a given context.}, has two main advantages over K-means which minimizes the sum of squared distances from points to means in each cluster. These advantages are: 
+\begin{enumerate}[(i)]
+\item it can use any measure of similarity between points, making it more flexible than K-means which can only use euclidean distance between vectors
+\item K-medoids partitioning is much more robust to outliers than K-means given the use of medoids as opposed to means
+\end{enumerate}
+Conversely, the main disadvantage of K-medoids against K-means is that, for $k, n, i$ clusters, iterations and data points respectively, K-medoids' runtime cost is $O(k\cdot i \cdot n^2)$ whereas K-means' is $O(k\cdot i \cdot n)$.
 
-Conversely, a disadvantage of K-medoids is that its runtime cost is $O(n^2)$ whereas K-means' is $O(n)$.
-
+To put this in context: where a simple example such as the one from question 3 has a K-means time complexity
+bounded by $8\times 48 \times 407 \times 516 \approx 352\times 10^9$ operations, if we assume convergence also at 48 iterations 
+for K-medoids, its time complexity would be in the order of  $8\times 48 \times (407 \times 516)^2 \approx 75 \times 10^{15}$
+ operations! Making K-medoids a pertinent choice only when applications are not time-sensitive where the added benefits of the use of medoids are desired.
 \end{document}
