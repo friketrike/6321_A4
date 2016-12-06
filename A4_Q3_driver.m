@@ -2,16 +2,16 @@
 % Federico O'Reilly Regueiro - 40012304
 % Assignment 4, due December 9th
 
-
 % Script file for performing k-means clustering. Should return the following:
 %• How many clusters there are in the end. (A cluster can “disappear” in one iteration of the
 %algorithm if no vectors or closest to its centroid.)
 %• The final centroids of each cluster.
 %• The number of pixels associated to each cluster.
-%• The sum of squared distances from each pixel to the nearest centroid after every iteration of the
-%algorithm.
+%• The sum of squared distances from each pixel to the nearest centroid after every iteration 
 
 isOctave = exist('OCTAVE_VERSION', 'builtin') ~= 0;
+% save plots and pictures by default, define save_files = false to disable
+if ~exist('save_files') save_files = true; end
 
 if isOctave
   flush = @()fflush(stdout);
@@ -111,25 +111,29 @@ G = reshape(clustered(:,2)./255, 407, 516);
 B = reshape(clustered(:,3)./255, 407, 516);
 the_image = cat(3, R', G', B');
 fliplr(the_image);
-%imwrite(the_image, 'muchBetterThanTrumpPatches.jpg');
+if (save_files) imwrite(the_image, 'muchBetterThanTrumpPatches.jpg'); end
 
 % cut pre-allocated arrays if they weren't fully used
 k_membership_counts(iteration_count+1:end, :) = [];
 means_trajectory(:,:,iteration_count+1:end) = [];
 sum_squared_dist(:, iteration_count+1:end) = [];
 
-disp(sprintf('The whole process took %d seconds.', toc(t0)));
+disp(sprintf('\nThe whole process took %d seconds.', toc(t0)));
 
 plot_time = tic();
 % Give some info
-disp(sprintf('There are %d total clusters with pixels in them',...
+disp(sprintf('\nThere are %d total clusters with pixels in them',...
              sum(k_membership_counts(iteration_count,:) ~= 0) ));
 
-disp('Final cluster membership count is respectively:');
+disp('\nFinal cluster membership count is respectively:');
 disp(k_membership_counts(iteration_count,:));
 
-disp('The final centroids are:');
+disp('\nThe final centroids are:');
 disp(k_means_flat)
+flush();
+
+disp('\nPlease be patient, I''m working on some plots...');
+flush();
 
 % now plot some things
 g = figure(1);
@@ -145,19 +149,21 @@ axis([0,iteration_count,0,k+1]);
 title('Colors resulting from centroid movement over iterations')
 xlabel('Iterations');
 ylabel('Cluster');
-%saveas(gcf,'centroidEvolutions.pdf');
+if (save_files) saveas(gcf,'centroidEvolutions.pdf'); end
 
 figure(2)
 plot(sum_squared_dist)
 title('sum of squared distances to centroid per iteration');
 xlabel('iterations');
-%saveas(gcf,'sumSquaredDistances.pdf');
+if (save_files) saveas(gcf,'sumSquaredDistances.pdf'); end
 
 figure(3)
 for kth = 1:k
   subplot(ceil(k/2), 2, kth);
   plot(k_membership_counts(:, kth));
   hold on;
+  title(sprintf('cluster %d, number of pixels per iteration', kth));
+  xlabel('iterations');
 end
 hold off;
 
@@ -182,6 +188,6 @@ legend(legends);
 title('Cluster number of pixels and color over iterations')
 xlabel('Iterations');
 ylabel('Number of pixels');
-%saveas(gcf,'clusterMembership.pdf');
+if (save_files) saveas(gcf,'clusterMembership.pdf'); end
 
 disp(sprintf('Plotting took %d seconds', toc(plot_time)));
